@@ -8,6 +8,7 @@ implement calculation for rankings
 - fix China bug
 - fix axes
 - mouse-over
+- tick-sorting,  wrong direction!
 */
 
 (function(){
@@ -34,15 +35,37 @@ implement calculation for rankings
 
     var xAxis1 = d3.svg.axis()
         .scale(x1)
-        .orient("top");
+        .orient("top")
+        .ticks(7)
+        .tickFormat(
+          function( t ) {
+            if( t === 0 ) {
+              return '';
+            } else if ( input === "population"){
+              return t / 1000;
+            } else if ( input === "team"){
+                return t* 100;
+            } else if ( input === "gdp" ){
+                return t * 1000;
+            }
+          }
+        );
 
     //later: tip, medals, country etc.
     var tip = d3.tip()
         .attr("class", "d3-tip")
         .offset([-10,0])
-        .html( function(d){return "<text>" + d.Deutsche_Bezeichnung + ":</br>" + d.Gold + " Gold, " 
-            + d.Silber + " Silber, " + d.Bronze + " Bronze, </br> Medaillen: "
-            + d.Summe + "</br>Medaillen-Punkte: " + d.Score + "</text>"})
+        .html( function(d){
+            if(f=10){ //was abfragen??? 
+                return "<text>" + d.Deutsche_Bezeichnung + ":</br>" + d.Gold + " Gold, " 
+                + d.Silber + " Silber, " + d.Bronze + " Bronze, </br> Medaillen: "
+                + d.Summe + "</br>Medaillen-Punkte: " + d.Score + "</text>"
+            }else{
+                return "<text>" + d.Deutsche_Bezeichnung + ":</br>" + d.Gold + " Gold, " 
+                + d.Silber + " Silber, " + d.Bronze + " Bronze, </br> Medaillen: "
+                + d.Summe + "</br>Medaillen-Punkte: " + d.Score + "</text>"
+            } 
+        });
 
     var svg = d3.select("body")
     	.append("svg")
