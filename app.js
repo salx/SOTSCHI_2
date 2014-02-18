@@ -9,6 +9,8 @@ implement calculation for rankings
 - fix axes
 - mouse-over
 - tick-sorting,  wrong direction!
+
+Achsen vertauschen
 */
 
 (function(){
@@ -116,12 +118,12 @@ implement calculation for rankings
         data.forEach( function(d){ 
             numberKeys.forEach( function(key){ d[key] = parseInt(d[key]) } );   
             d.GDP = parseInt( d.GDP.replace(/\./g, ''));
-            //d.weightedGDP = (d.Score/d.GDP *1000000000);
-            d.weightedGDP = d.GDP;
-            //d.weightedTeam =(d.Score/d.Teilnehmer);
-            d.weightedTeam =d.Teilnehmer;
-            //d.weightedPopulation = (d.Score/d.Bevoelkerung)*100000;
-            d.weightedPopulation = d.Bevoelkerung;
+            d.weightedGDP = (d.Score/d.GDP *1000000000);
+            //d.weightedGDP = d.GDP;
+            d.weightedTeam =(d.Score/d.Teilnehmer);
+            //d.weightedTeam =d.Teilnehmer;
+            d.weightedPopulation = (d.Score/d.Bevoelkerung)*100000;
+            //d.weightedPopulation = d.Bevoelkerung;
             //console.log( d.Teilnehmer, d.weightedTeam)
         } );
 
