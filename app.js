@@ -1,13 +1,13 @@
 /*
 ToDo:
-Stacked Layout
+Stacked Layout for left-side bars (giodl silver etc.)
 delete all countries with none (now deleted in data)
 implement calculation for rankings 
 
-Sonderzeichen?
-
-    . nach sort domain x neu setzen
-    . transition select all .weightedBar
+- initial view without bars, or with update instead of drawing (jetzt holprig gelöst)
+- fix China bug
+- fix axes
+- mouse-over
 */
 
 (function(){
@@ -148,7 +148,7 @@ Sonderzeichen?
     			return x1(d.Score);
     		})
     		.attr("fill", "#6b486b");
-            
+
         countries.append("rect")
             .attr("class", "bar weightedBar")
             .attr("height", y.rangeBand())
@@ -156,7 +156,7 @@ Sonderzeichen?
             .attr("width", function(d){
                 return half-x(d.Score);
             })
-            .attr("fill", "#6b486b");
+            .attr("fill", "#fff"); // dann halt so....holprig aber doch
 
     	countries.append( 'text' )
     	    .attr( 'class', 'label' )
@@ -210,9 +210,10 @@ Sonderzeichen?
                 }else if(input == "population"){
                     width = d.weightedPopulation;
                 }
-                return half - x(width);
+                return half - x(width)
 
             })
+            .attr("fill", "#4D8091");
         var label;
         if( input === 'gdp') {
             label = 'blabla'
